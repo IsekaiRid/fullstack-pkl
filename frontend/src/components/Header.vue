@@ -2,13 +2,12 @@
   <header class="header">
     <div class="logo-container">
       <img src="../assets/logo.png" alt="Logo" class="logo" />
-      <h1 class="judul">Sangkuriang</h1>
+      <h1 class="judul">Seputar Sekolah</h1>
     </div>
     <nav class="menu">
       <ul>
-        <li><a href="#">Beranda</a></li>
-        <li><a href="#">Profil</a></li>
-        <li><a href="#">Kontak</a></li>
+        <li><router-link to="/">Sekolah</router-link></li>
+        <li><router-link to="/news">News</router-link></li>
       </ul>
     </nav>
   </header>

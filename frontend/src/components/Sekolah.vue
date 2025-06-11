@@ -1,6 +1,6 @@
 <template>
   <div class="card" @click="handleClick">
-    <img :src="logo" alt="Logo Sekolah" />
+    <img src="../assets/default.jpg" alt="Logo Sekolah" class="logo" />
     <h3>{{ nama }}</h3>
     <p>{{ deskripsi }}</p>
   </div>
@@ -34,11 +34,16 @@ export default {
   max-width: 400px;
   box-shadow: 2px 2px 10px #ccc;
 }
+
 .logo {
-  max-width: 100px;
-  height: auto;
-  margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover; /* Biar gambar tetap rapi */
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto 12px;
 }
+
 .card:hover {
   transform: scale(1.03);
 }

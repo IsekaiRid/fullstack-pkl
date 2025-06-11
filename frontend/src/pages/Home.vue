@@ -3,15 +3,14 @@
     <Header />
 
     <h2>3 Sekolah Unggulan</h2>
-    <div class="content">
-      <SekolahCard
-        v-for="(item, index) in tigaSekolah"
-        :key="index"
-        :id="item.id"
-        :nama="item.nama"
-        :deskripsi="item.deskripsi"
-        :logo="item.logo"
-      />
+
+    <div class="content" v-if="tigaSekolah.length > 0">
+      <SekolahCard v-for="(item, index) in tigaSekolah" :key="index" :id="item.id_schools" :nama="item.nama"
+        :deskripsi="item.deskripsi" :logo="item.logo" />
+    </div>
+
+    <div class="not-found" v-else>
+      <p>Belum ada data sekolah yang tersedia.</p>
     </div>
 
     <!-- <div class="lihat-semua">
@@ -40,7 +39,7 @@ export default {
     },
   },
   mounted() {
-    fetch("http://16.0.0.4:8000/api/schools")
+    fetch("http://127.0.0.1:8000/api/schools")
       .then((res) => res.json())
       .then((data) => {
         this.daftarSekolah = data;
@@ -53,12 +52,21 @@ export default {
 </script>
 
 <style scoped>
+.not-found {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  margin-top: 40px;
+}
+
+
 .content {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
   padding: 16px;
+  margin-bottom: 20px;
 }
 
 h2 {
