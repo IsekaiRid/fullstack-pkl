@@ -1,8 +1,20 @@
 <template>
-  <div class="card" @click="handleClick">
-    <img src="../assets/default.jpg" alt="Logo Sekolah" class="logo" />
-    <h3>{{ nama }}</h3>
-    <p>{{ deskripsi }}</p>
+  <div class="tentang">
+    <div class="card">
+      <div class="card-content">
+        <div class="text">
+          <h3>{{ nama }}</h3>
+          <p>{{ deskripsi }}</p>
+        </div>
+        <img
+          :src="logoUrl"
+          alt="Logo Sekolah"
+          class="logo"
+          @error="fallbackImage"
+          @click="handleClick"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,40 +23,80 @@ export default {
   props: {
     id: {
       type: [Number, String],
-      required: true
+      required: true,
     },
     nama: String,
     deskripsi: String,
-    logo: String
+    logo: String,
+  },
+  computed: {
+    logoUrl() {
+      if (this.logo && this.logo.startsWith("http")) {
+        return this.logo;
+      }
+      if (this.logo) {
+        return `/images/${this.logo}`;
+      }
+      return require("@/assets/default.jpg");
+    },
   },
   methods: {
     handleClick() {
       this.$router.push(`/sekolah/${this.id}`);
-    }
-  }
+    },
+    fallbackImage(event) {
+      event.target.src = require("@/assets/default.jpg");
+    },
+  },
 };
 </script>
 
-
 <style scoped>
+.tentang {
+  max-width: 1440px;
+  min-height: 670px;
+}
+
 .card {
-  border: 1px solid #ddd;
-  border-radius: 12px;
   padding: 16px;
-  max-width: 400px;
-  box-shadow: 2px 2px 10px #ccc;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.text {
+  flex: 1;
 }
 
 .logo {
-  width: 100px;
-  height: 100px;
-  object-fit: cover; /* Biar gambar tetap rapi */
+  width: 500px;
+  height: auto;
+  object-fit: cover;
   border-radius: 8px;
-  display: block;
-  margin: 0 auto 12px;
+  padding-top: 70px;
 }
 
-.card:hover {
+.logo:hover {
   transform: scale(1.03);
+}
+
+h3 {
+  padding-bottom: 50px;
+  padding-top: 50px;
+  font-weight: 900;
+  font-size: 36px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+  padding-top: 60px;
+  font-size: 25px;
+  text-align: justify;
 }
 </style>

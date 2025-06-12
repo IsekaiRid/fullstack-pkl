@@ -6,7 +6,7 @@
         </div>
 
         <div v-else-if="daftarBerita.length">
-            <NewsCard v-for="item in daftarBerita" :key="item.id_news" :id_news="item.id_news" :judul="item.judul"
+            <NewsCard v-for="item in tigaBerita" :key="item.id_news" :id_news="item.id_news" :judul="item.judul"
                 :isi="item.isi" :gambar="item.gambar" :tanggal="item.tanggal" />
         </div>
 
@@ -31,6 +31,11 @@ export default {
             daftarBerita: []
         };
     },
+     computed: {
+    tigaBerita() {
+      return this.daftarBerita.slice(0, 3); // tampilkan hanya 3 pertama
+    },
+  },
     mounted() {
         fetch('http://127.0.0.1:8000/api/news')
             .then(res => {
@@ -50,7 +55,6 @@ export default {
 <style scoped lang="css">
 .berita-wrapper {
     padding: 16px;
-    max-width: 900px;
     margin: 0 auto;
 }
 

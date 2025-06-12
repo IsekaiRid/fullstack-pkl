@@ -4,7 +4,7 @@
 
     <div class="container">
       <div v-if="sekolah" class="card-detail">
-        <img src="../assets/default.jpg" alt="Logo Sekolah" class="school-logo" />
+        <img :src="logoUrl" alt="Logo Sekolah" class="school-logo" />
         <h2 class="school-name">{{ sekolah.nama }}</h2>
         <p class="school-description">{{ sekolah.deskripsi }}</p>
         <div class="school-info">
@@ -43,7 +43,20 @@ export default {
       .catch(err => {
         console.error('Gagal ambil data detail sekolah:', err);
       });
+  },
+computed: {
+  logoUrl() {
+    if (!this.sekolah || !this.sekolah.logo) {
+      return require('@/assets/default.jpg'); // default image
+    }
+
+    if (this.sekolah.logo.startsWith("http")) {
+      return this.sekolah.logo; // langsung pakai URL full
+    }
+
+    return `/images/${this.sekolah.logo}`; // asumsi gambar lokal dari folder public/images
   }
+}
 };
 </script>
 
@@ -66,7 +79,7 @@ export default {
 }
 
 .school-logo {
-  width: 120px;
+  width: 200px;
   height: auto;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -80,7 +93,7 @@ export default {
 
 .school-description {
   font-size: 16px;
-  color: #666;
+  color: #444;
   margin-bottom: 20px;
 }
 

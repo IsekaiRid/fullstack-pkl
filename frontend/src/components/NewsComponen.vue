@@ -1,10 +1,12 @@
 <template>
-  <div class="news-card" @click="goToDetail">
-    <img src="../assets/berita.jpg" alt="Gambar Berita" class="news-image" />
-    <div class="news-content">
-      <h3 class="news-title">{{ judul }}</h3>
-      <p class="news-date">📅 {{ formattedDate }}</p>
-      <p class="news-snippet">{{ snippet }}...</p>
+  <div class="news">
+    <div class="news-card" @click="goToDetail">
+      <img src="../assets/berita.jpg" alt="Gambar Berita" class="news-image" />
+      <div class="news-content">
+        <h3 class="news-title">{{ judul }}</h3>
+        <p class="news-date">📅 {{ formattedDate }}</p>
+        <p class="news-snippet">{{ snippet }}...</p>
+      </div>
     </div>
   </div>
 </template>
@@ -15,12 +17,12 @@ export default {
   props: {
     id_news: {
       type: [Number, String],
-      required: true
+      required: true,
     },
     judul: String,
     isi: String,
     gambar: String,
-    tanggal: String
+    tanggal: String,
   },
   computed: {
     snippet() {
@@ -29,26 +31,34 @@ export default {
     formattedDate() {
       const options = { year: "numeric", month: "long", day: "numeric" };
       return new Date(this.tanggal).toLocaleDateString("id-ID", options);
-    }
+    },
   },
   methods: {
     goToDetail() {
       this.$router.push(`/berita/${this.id_news}`);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.news-card {
+.news {
   display: flex;
+  justify-content: center;
+}
+
+.news-card {
+ display: flex; /* Biar kontennya sejajar horizontal */
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
   border: 1px solid #ddd;
   border-radius: 12px;
-  overflow: hidden;
-  margin: 16px 0;
+  background: #fff;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  padding: 10px;
+  margin-bottom: 12px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 .news-card:hover {
   transform: scale(1.01);
