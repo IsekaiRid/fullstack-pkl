@@ -10,6 +10,7 @@
         :id="item.id_schools"
         :nama="item.nama"
         :deskripsi="item.deskripsi"
+        :alamat="item.alamat"
         :logo="item.logo"
       />
     </div>
@@ -46,25 +47,31 @@
     </div>
 
     <!-- Galeri -->
-    <div class="container-g" id="galeri">
-      <div v-if="isLoading" class="loading">
-        <p>Memuat gambar...</p>
-      </div>
-      <h1>Galeri</h1>
+    <div class="content" id="galeri">
+      <div class="galeri-wrapper">
+        <div v-if="isLoading" class="loading">
+          <p>Memuat gambar...</p>
+        </div>
 
-      <div v-if="daftarGalery.length" class="display">
-        <GaleryCard
-          class="display"
-          v-for="item in tigaGambar"
-          :key="item.id_galery"
-          :id="item.id_galery"
-          :gambar="item.gambar"
-          :deskripsi="item.deskripsi"
-        />
-      </div>
+        <div v-else>
+          <h1>Galeri</h1>
 
-      <div v-else class="loading">
-        <p>Tidak ada berita tersedia.</p>
+          <div v-if="daftarGalery.length" class="display">
+            <GaleryCard
+              class="display"
+              v-for="item in tigaGambar"
+              :key="item.id_galery"
+              :id="item.id_galery"
+              :gambar="item.gambar"
+              :deskripsi="item.deskripsi"
+            />
+          </div>
+
+          <div v-else class="loading">
+            <p>Tidak ada berita tersedia.</p>
+          </div>
+          <div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -137,7 +144,6 @@ export default {
 </script>
 
 <style scoped>
-
 .not-found {
   text-align: center;
   color: #999;
@@ -156,7 +162,7 @@ export default {
 
 h1 {
   text-align: center;
-  padding-top: 50px;
+  padding-top: 40px;
   padding-bottom: 10px;
 }
 
@@ -183,17 +189,47 @@ h1 {
   margin-top: 20px;
 }
 
-.container-g {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 .display {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .content,
+  .display {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .berita-wrapper {
+    padding: 12px;
+  }
+  .galeri-wrapper {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content,
+  .display {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  h1 {
+    font-size: 20px;
+    padding-top: 40px;
+    padding-bottom: 8px;
+  }
+
+  .berita-wrapper {
+    padding: 8px;
+  }
+  .galeri-wrapper {
+    padding: 8px;
+  }
 }
 </style>

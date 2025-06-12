@@ -1,6 +1,6 @@
 <template>
   <div class="news">
-    <div class="news-card" @click="goToDetail">
+    <div class="news-card">
       <img src="../assets/berita.jpg" alt="Gambar Berita" class="news-image" />
       <div class="news-content">
         <h3 class="news-title">{{ judul }}</h3>
@@ -33,11 +33,6 @@ export default {
       return new Date(this.tanggal).toLocaleDateString("id-ID", options);
     },
   },
-  methods: {
-    goToDetail() {
-      this.$router.push(`/berita/${this.id_news}`);
-    },
-  },
 };
 </script>
 
@@ -61,7 +56,8 @@ export default {
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 .news-card:hover {
-  transform: scale(1.01);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 .news-image {
   width: 180px;
