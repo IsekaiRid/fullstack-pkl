@@ -81,5 +81,9 @@ p{
   width: 300px;
 }
 
+.card_coponent:hover{
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
 
 </style>
