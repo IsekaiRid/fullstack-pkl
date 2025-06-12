@@ -13,12 +13,5 @@ class galeryModel extends Model
     protected $table = 'galery';
     protected $primaryKey = 'id_galery';
 
-    protected $fillable = [
-        'nama',
-        'deskripsi',
-        'alamat',
-        'kontak',
-        'logo'
-
-    ];
+    protected $fillable = ['gambar', 'deskripsi'];
 }

@@ -32,30 +32,33 @@ class galeryController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input
         $validator = Validator::make($request->all(), [
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'deskripsi' => 'required|string'
         ]);
 
-        return($request);
-
-        //check if validation fails
+        // Jika validasi gagal
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
         }
 
-        //upload image
+        Storage::makeDirectory('galery');
         $image = $request->file('gambar');
         $image->storeAs('galery', $image->hashName());
 
-        //create product
-        $schools = galeryResource::create([
+        // Simpan data ke database
+        $data = galeryModel::create([
             'gambar' => $image->hashName(),
             'deskripsi' => $request->deskripsi
-
         ]);
 
-        return new galeryResource(true, 'Data berhasil di tambahkan', $schools);
+        // Kembalikan response menggunakan Resource
+        return new galeryResource(true, 'Data berhasil ditambahkan', $data);
     }
 
     /**
@@ -79,8 +82,8 @@ class galeryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         $validator = Validator::make($request->all(), [
-           'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        $validator = Validator::make($request->all(), [
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'deskripsi' => 'required|string'
 
         ]);
